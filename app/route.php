@@ -18,9 +18,10 @@
             
             $this->routes['home'] = array(
                 'route' =>  '/',
-                'controller' => 'indexController',
+                'controller' => 'IndexController',
                 'action' => 'index'
-            );    
+            );             
+
         }
 
         public function setUrlParam(){
@@ -33,8 +34,25 @@
         }
 
         public function runRoute(){
-            $indexController = new controllers\IndexController;
-            $indexController->index();
+            foreach($this->routes as $nome_rota=>$rota){
+                // echo '<pre>';
+                // print_r($nome_rota);
+                // print_r($rota);
+                // echo '</pre>';
+
+                if($rota['route'] == $this->rota_solicitada){
+                    
+                    $classe = 'App\\controllers\\'.$rota['controller'];
+                    $acao = $rota['action'];
+                    
+                    $indexController = new $classe;
+                    $indexController->$acao();
+
+                }
+
+            }
+
+
         }
 
 
